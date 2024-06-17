@@ -5849,6 +5849,9 @@
         "gasStation": "0xD692B454255d072B1ACe1b624e6Ee2bFd939D80F",
         "gaugeRewardsInjectors": {
           "wmatic": "0x95AaDD5092F5b3a4Bbbefdf4187962b811bF9e79"
+        },
+        "gaugeRewardsInjectorsV2": {
+          "test_rewards_injector": "0xb8d83ae36dc83e972497882B4Ca77864f3eDC54c"
         }
       },
       "one_inch": {
