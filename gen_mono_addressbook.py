@@ -7,32 +7,22 @@ import os
 import re
 import json
 from pathlib import Path
-
+from typing import Dict
 from bal_addresses import AddrBook
+from bal_tools import Web3Rpc
+import requests
+from collections import defaultdict, OrderedDict
+from typing import Dict
 
 
-deployments = os.environ["DEPLOYMENTS_REPO_ROOT_URL"]
-basepath = deployments
+DEPLOYMENTS_ADDRESS_ROOT_URL = "https://raw.githubusercontent.com/balancer/balancer-deployments/refs/heads/master/addresses/"
 
 
 def main():
     # Get deployments
-    active_deployments = []
-    old_deployments = []
-    ls = sorted(os.listdir(f"{basepath}/tasks"))
-    for path in ls:
-        if bool(re.search(r"^\d{8}", path)):
-            active_deployments.append(path)
-
-    ls = sorted(os.listdir(f"{basepath}/tasks/deprecated"))
-    for path in ls:
-        if bool(re.search(r"^\d{8}", path)):
-            old_deployments.append(path)
-
-    active = process_deployments(active_deployments, False)
-    old = process_deployments(old_deployments, True)
-
-    results = {"active": active, "old": old}
+    results = process_deloyments_json()
+    # Create a pointer to the active part of the deployments
+    active = results["active"]
     with open("outputs/deployments.json", "w") as f:
         json.dump(results, f, indent=2)
     ### Add extras
@@ -75,31 +65,95 @@ def main():
                 data = AddrBook.checksum_address_dict(data)
         except:
             data = {}
-
         active[chain] = data | active[chain]
-    results = {"active": active, "old": old}
-    with open("outputs/addressbook.json", "w") as f:
-        json.dump(results, f, indent=2)
+        ### add injectors
+        injectors = process_v2_injectors(chain)
+
+        active[chain].setdefault("maxiKeepers", {}).setdefault("injectorV2", {})[
+            "deployed"
+        ] = injectors
+        with open("outputs/addressbook.json", "w") as f:
+            json.dump(results, f, indent=2)
 
 
-def process_deployments(deployments, old=False):
-    result = {}
-    for task in deployments:
-        if old:
-            path = Path(f"{basepath}/tasks/deprecated/{task}/output")
+def process_deloyments_json():
+    results = {"active": defaultdict(dict), "deprecated": defaultdict(dict)}
+
+    for chain in AddrBook.chain_ids_by_name.keys():
+        try:
+            r = requests.get(f"{DEPLOYMENTS_ADDRESS_ROOT_URL}{chain}.json")
+            r.raise_for_status()
+            data = r.json()
+        except:
+            print(f"Error fetching deployments for {chain}")
+
+        for deployment_name, deployment in data.items():
+            status = deployment["status"].lower()
+            if status in ["script"]:
+                continue
+            contracts = deployment["contracts"]
+            for contract in contracts:
+                address = contract["address"]
+                name = contract["name"]
+                results[status].setdefault(chain, {}).setdefault(deployment_name, {})[
+                    name
+                ] = address
+    ## Old method had chains alphabetized
+    results["active"] = OrderedDict(sorted(results["active"].items()))
+    return results
+
+
+def process_v2_injectors(chain) -> Dict[str, str]:
+    """
+    Add injector V2's to the addressbook from the factory
+    Will first use any injectors defined in extras.maxiKeepers.injectorV2.injectors
+    If that is not defined, it will try to fetch all injectors from the factory and get info for naming that way
+    """
+    try:
+        f = open("extras/v2injectors_override.json", "r")
+        override_data = json.load(f)
+        override_data = override_data.get(chain, {})
+    except Exception as e:
+        print(f"No extras/v2injectors_override.json file found: {e}")
+        override_data = {}
+
+    a = AddrBook(chain)
+    results = {}
+    try:
+        factory = a.extras.maxiKeepers.injectorV2.factory
+    except:
+        print(f"No V2 Injector factory found for {a.chain}")
+        return {}
+    factory_abi = json.load(open("bal_addresses/abis/InjectorV2Factory.json"))
+    logic_abi = json.load(open("bal_addresses/abis/InjectorV2Logic.json"))
+    erc20_abi = json.load(open("bal_addresses/abis/ERC20.json"))
+    ## try to get a list of all injectors from the factory
+    w3 = Web3Rpc(chain, os.getenv("DRPC_KEY"))
+    try:
+        injectors = (
+            w3.eth.contract(address=factory, abi=factory_abi)
+            .functions.getDeployedInjectors()
+            .call()
+        )
+    except:
+        print(f"Error fetching injectors from factory {factory}")
+        return {}
+    for injector_address in injectors:
+        if injector_address in override_data.keys():
+            injector_name = override_data[injector_address]
         else:
-            path = Path(f"{basepath}/tasks/{task}/output")
-        for file in list(sorted(path.glob("*.json"))):
-            chain = file.stem
-            if chain not in result.keys():
-                result[chain] = {}
-            if task not in result[chain].keys():
-                result[chain][task] = {}
-            with open(str(file), "r") as f:
-                data = json.load(f)
-            for contract, address in data.items():
-                result[chain][task][contract] = address
-    return result
+            logic = w3.eth.contract(address=injector_address, abi=logic_abi)
+            reward_token = logic.functions.InjectTokenAddress().call()
+            try:
+                token_interface = w3.eth.contract(address=reward_token, abi=erc20_abi)
+                reward_token = token_interface.functions.symbol().call()
+            except:
+                print(
+                    f"Can't connect to token {a.chain}{reward_token} to resolve name for injector scheduling. Using address."
+                )
+            injector_name = f"{reward_token}_{injector_address[-6:]}"
+        results[injector_address] = injector_name
+    return results
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GRAPH_API_KEY: ${{ secrets.GRAPH_API_KEY }}
+      DRPC_KEY: ${{ secrets.DRPC_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,8 +23,6 @@ jobs:
       - name: Update Files
         id: update
         run: |
-          git clone https://github.com/balancer/balancer-deployments.git
-          export DEPLOYMENTS_REPO_ROOT_URL=`pwd`/balancer-deployments
           pip3 install -r bal_addresses/requirements.txt
           python3 gen_pools_and_gauges.py
           python3 gen_mono_addressbook.py
