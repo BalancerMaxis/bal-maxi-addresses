@@ -96,7 +96,8 @@
     "wstETH-ezETH_boost": "0xfcF293AFa58fa277935eddAa44E0f782EC41B09B"
   },
   "paladin": {
-    "QuestBoardV2Sidechain": "0x8EdcFE9Bc7d2a735117B94C16456D8303777abbb"
+    "QuestBoardV2Sidechain": "0x8EdcFE9Bc7d2a735117B94C16456D8303777abbb",
+    "QuestBoardSidechainBal": "0x997523ef97e0b0a5625ed2c197e61250acf4e5f1"
   },
   "circle": {
     "message_transmitter": "0xC30362313FBBA5cf9163F0bb16a0e01f01A896ca"
