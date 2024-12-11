@@ -1,5 +1,5 @@
 pathlib>=1.0
-git+https://github.com/BalancerMaxis/bal_tools.git@v0.1.14
+git+https://github.com/BalancerMaxis/bal_tools.git@feat/allow-qgl-query-as-string
 requests
 pandas
 web3
