@@ -71,6 +71,7 @@
   "helpers": {
     "balance_checker": "0xe92261c2D64C363109c36a754A87107142e61b72",
     "vlaura_relocker_module": "0xfD20C63554A9916816dC5e5Df596A0333185F263",
+    "otc_escrow_bal_cow": "0x2BC7660181767cd562149ACBA9B89C07E31d7864",
     "rebalancerForPool": "0x3FBbB48ad78051982688a5a2Bc45eB6E2046a136"
   },
   "layerzero": {
