@@ -17,13 +17,14 @@
     "grants_treasury": "0xE2c91f3409Ad6d8cE3a2E2eb330790398CB23597",
     "bizdev": "0xC7E84373FC63A17B5B22EBaF86219141B630cD7a",
     "aura_service_provider": "0x59e6749Dc4FF4375B30316cD0d34B15BEFc6c652",
-    "lido_partner_lm": "0xeD2Bc4e72Ed7D61FA4812a6B0E3d16F8Ad8369a1"
+    "_deprecated": {
+      "lido_partner_lm": "0xeD2Bc4e72Ed7D61FA4812a6B0E3d16F8Ad8369a1"
+    }
   },
   "polygon": {
     "lm": "0xc38c5f97B34E175FFd35407fc91a937300E33860",
     "dao": "0xeE071f4B516F69a1603dA393CdE8e76C40E5Be85",
     "fees": "0x7c68c42De679ffB0f16216154C996C354cF1161B",
-    "feeManager": "0x7c68c42De679ffB0f16216154C996C354cF1161B",
     "emergency": "0x3c58668054c299bE836a0bBB028Bee3aD4724846",
     "blabs_ops": "0xf9D6BdE5c2eef334AC88204CB2eEc07111DCBA97",
     "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e"
@@ -32,51 +33,49 @@
     "lm": "0xc38c5f97B34E175FFd35407fc91a937300E33860",
     "dao": "0xaF23DC5983230E9eEAf93280e312e57539D098D0",
     "fees": "0x7c68c42De679ffB0f16216154C996C354cF1161B",
-    "feeManager": "0x7c68c42De679ffB0f16216154C996C354cF1161B",
     "emergency": "0xf404C5a0c02397f0908A3524fc5eb84e68Bbe60D",
     "blabs_ops": "0x56ebA8dcDcEC3161Dd220c4B4131c27aF201F892",
     "maxi_ops": "0x5891b90CE909d4c3540d640d2BdAAF3fD5157EAD",
     "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e",
-    "kyc_grant_safe": "0xb6BfF54589f269E248f99D5956f1fDD5b014D50e",
-    "lido_partner_lm": "0xeD2Bc4e72Ed7D61FA4812a6B0E3d16F8Ad8369a1"
+    "_deprecated": {
+      "kyc_grant_safe": "0xb6BfF54589f269E248f99D5956f1fDD5b014D50e",
+      "lido_partner_lm": "0xeD2Bc4e72Ed7D61FA4812a6B0E3d16F8Ad8369a1"
+    }
   },
   "optimism": {
     "dao": "0x043f9687842771b3dF8852c1E9801DCAeED3f6bc",
     "fees": "0x09Df1626110803C7b3b07085Ef1E053494155089",
-    "feeManager": "0x09Df1626110803C7b3b07085Ef1E053494155089",
     "lm": "0x09Df1626110803C7b3b07085Ef1E053494155089",
     "emergency": "0xd4c87b33afcE39F1E3F4aF1ce8fFFF7241d9128B",
     "blabs_ops": "0xFB2ac3989B6AD0e043a8958004484d6BAAb2c6Ab",
     "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e",
     "beets_treasury": "0x2a185c8a3c63d7bfe63ad5d950244ffe9d0a4b60",
-    "lido_partner_lm": "0xeD2Bc4e72Ed7D61FA4812a6B0E3d16F8Ad8369a1"
+    "_deprecated": {
+      "lido_partner_lm": "0xeD2Bc4e72Ed7D61FA4812a6B0E3d16F8Ad8369a1"
+    }
   },
   "zkevm": {
     "blabs_ops": "0xB59Ab49CA8d064E645Bf2c546d9FE6d1d4147a09",
     "dao": "0x2f237e7643a3bF6Ef265dd6FCBcd26a7Cc38dbAa",
     "emergency": "0x79b131498355daa2cC740936fcb9A7dF76A86223",
-    "fees": "0xB59Ab49CA8d064E645Bf2c546d9FE6d1d4147a09",
-    "lm": "0xB59Ab49CA8d064E645Bf2c546d9FE6d1d4147a09",
-    "feesManager": "0xB59Ab49CA8d064E645Bf2c546d9FE6d1d4147a09"
+    "lm": "0xB59Ab49CA8d064E645Bf2c546d9FE6d1d4147a09"
   },
   "avalanche": {
-    "blabs_ops": "0x326A7778DB9B741Cb2acA0DE07b9402C7685dAc6",
     "emergency": "0x308f8d3536261C32c97D2f85ddc357f5cCdF33F0",
     "dao": "0x17b11FF13e2d7bAb2648182dFD1f1cfa0E4C7cf3",
     "lm": "0x326A7778DB9B741Cb2acA0DE07b9402C7685dAc6",
-    "fees": "0x326A7778DB9B741Cb2acA0DE07b9402C7685dAc6",
     "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e"
   },
   "gnosis": {
     "emergency": "0xd6110A7756080a4e3BCF4e7EBBCA8E8aDFBC9962",
     "dao": "0x2a5AEcE0bb9EfFD7608213AE1745873385515c18",
-    "fees": "0x14969B55a675d13a1700F71A37511bc22D90155a",
-    "feeManager": "0x14969B55a675d13a1700F71A37511bc22D90155a",
     "karpatkey": "0x0EFcCBb9E2C09Ea29551879bd9Da32362b32fc89",
     "lm": "0x14969B55a675d13a1700F71A37511bc22D90155a",
     "blabs_ops": "0x955556b002d05c7B31a9394c10897c1DA19eAEab",
     "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e",
-    "dao_omni": "0x4f22C2784Cbd2B24a172566491Ee73fee1A63c2e"
+    "_deprecated": {
+      "dao_omni": "0x4f22C2784Cbd2B24a172566491Ee73fee1A63c2e"
+    }
   },
   "base": {
     "blabs_ops": "0x183C55A0dc7A7Da0f3581997e764D85Fd9E9f63a",
@@ -86,8 +85,6 @@
     "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e"
   },
   "goerli": {
-    "blabs_ops": "0x040E995520F92F96142d1a76c16D4af21A2eFDE7",
-    "lm": "0x040E995520F92F96142d1a76c16D4af21A2eFDE7",
     "maxi_ops": "0x040E995520F92F96142d1a76c16D4af21A2eFDE7"
   },
   "mode": {
@@ -101,14 +98,19 @@
     "dao": "0x4f22C2784Cbd2B24a172566491Ee73fee1A63c2e"
   },
   "fantom": {
-    "dao": "0xFe2022da08d17ac8388F5bEFE4F71456255105A4"
+    "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e",
+    "_deprecated": {
+      "dao": "0xFe2022da08d17ac8388F5bEFE4F71456255105A4"
+    }
   },
   "sonic": {
     "dao": "0x4f22C2784Cbd2B24a172566491Ee73fee1A63c2e",
     "maxi_omni": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e"
   },
   "bnb": {
-    "dao": "0x58099b94e660bBe19848547F6c5d76DcA7282E45"
+    "_deprecated": {
+      "dao": "0x58099b94e660bBe19848547F6c5d76DcA7282E45"
+    }
   },
   "sepolia": {
     "MaxiTesting": "0xdb0d41598cE0497C3aF4961599dc9245d3c0B3ce",
